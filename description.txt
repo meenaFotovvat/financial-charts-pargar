@@ -1,0 +1,50 @@
+# 📈 Next.js Candlestick Chart App
+
+This project is a modern frontend application built with **Next.js**, **TypeScript**, **Tailwind CSS**, and the powerful [`lightweight-charts`](https://github.com/tradingview/lightweight-charts) library to render interactive and responsive candlestick charts.
+
+---
+
+## 🚀 Features
+
+- ⚡️ Fast & optimized with Next.js App Router
+- 📊 Interactive candlestick charts using `lightweight-charts`
+- 💅 Utility-first styling with Tailwind CSS
+- ✅ Type-safe with TypeScript
+- 📱 Fully responsive design
+- 🧩 Modular project structure
+
+---
+
+## 🏗️ Project Structure
+
+src/
+├── app/ # App router pages
+├── components/ # Reusable UI components
+├── data/ # Static or mock data
+├── types/ # TypeScript types and interfaces
+
+
+---
+
+## 🧰 Tech Stack
+
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Lightweight Charts](https://www.npmjs.com/package/lightweight-charts)
+
+---
+
+## 🛠️ Getting Started
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/your-username/candlestick-chart-app.git
+cd candlestick-chart-app
+npm install
+# or
+yarn
+npm run dev
+# or
+yarn dev
