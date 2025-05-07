@@ -35,16 +35,25 @@ src/
 
 ---
 
-## 🛠️ Getting Started
 
-### 1. Clone the repo
+## Explaination:
 
-```bash
-git clone https://github.com/your-username/candlestick-chart-app.git
-cd candlestick-chart-app
-npm install
-# or
-yarn
-npm run dev
-# or
-yarn dev
+This project includes two main components for displaying charts using different libraries. Below are the details of each section and the reasoning behind the chosen approaches:
+
+1. **BarComparisonChart Component (using Recharts)**:
+   - `"use client"`: This file utilizes browser APIs (window) and must be executed on the client-side.
+   - **ResponsiveContainer**: Ensures the chart is responsive and automatically adjusts its size.
+   - **CartesianGrid, XAxis, YAxis, Tooltip**: Customization of axes and chart tooltips.
+   - **Custom Legend**: Adjusted for Tailwind styling and provides more control over positioning.
+
+2. **CandlestickChart Component (using lightweight-charts)**:
+   - **lightweight-charts library**: Suitable for financial charts (candlestick) with high performance.
+   - **useRef + useEffect**: Enables access and management of the chart after rendering.
+   - **isMounted**: Ensures the DOM element exists before initializing the Observer and mapping.
+   - **ResizeObserver**: Dynamically adjusts chart size when the window size changes.
+
+3. **Candlestick Page**:
+   - **dynamic with `{ ssr: false }`**: Since lightweight-charts depends on the window object, it causes issues on the server (SSR). By disabling SSR, this component is only loaded on the client-side.
+   - **Separation of data from the component**: Data is loaded from a JSON file in the `data/` folder to maintain clean and testable code.
+
+This approach ensures both charts function optimally within their respective use cases while keeping the implementation structured and efficient. Let me know if you need further refinements!
