@@ -2,10 +2,14 @@
 
 import dynamic from "next/dynamic";
 import chartInfos from "@/data/chart.json";
+import ChartLoader from "@/components/ChartLoader";
 
 const CandlestickChart = dynamic(
   () => import("@/components/CandlestickChart"),
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => <ChartLoader />,
+  }
 );
 
 const Candlestick = () => {
