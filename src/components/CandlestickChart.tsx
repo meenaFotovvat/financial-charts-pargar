@@ -7,7 +7,7 @@ import {
   CandlestickSeriesOptions,
   CandlestickSeries,
 } from "lightweight-charts";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
   data: CandlestickData[];
@@ -16,13 +16,18 @@ interface Props {
 export default function CandlestickChart({ data }: Props) {
   const chartContainerRef = useRef<HTMLDivElement | null>(null);
   const chartRef = useRef<IChartApi | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const container = chartContainerRef.current;
     if (!container) return;
 
     const chart = createChart(container, {
-      width: container.offsetWidth,
+      width: container.offsetWidth || 300,
       height: 300,
       layout: {
         background: { color: "#222" },
@@ -48,21 +53,27 @@ export default function CandlestickChart({ data }: Props) {
     newSeries.setData(data);
     chart.timeScale().fitContent();
 
-    const handleResize = () => {
-      if (chartRef.current && chartContainerRef.current) {
-        chartRef.current.applyOptions({
-          width: chartContainerRef.current.offsetWidth,
-        });
-      }
-    };
+    let resizeObserver: ResizeObserver | undefined;
 
-    window.addEventListener("resize", handleResize);
+    if (isMounted) {
+      resizeObserver = new ResizeObserver(() => {
+        if (chartRef.current && chartContainerRef.current) {
+          chartRef.current.applyOptions({
+            width: chartContainerRef.current.clientWidth || 300,
+          });
+        }
+      });
+
+      resizeObserver.observe(container);
+    }
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
       chart.remove();
     };
-  }, [data]);
+  }, [data, isMounted]);
 
   return (
     <div className="px-4">
