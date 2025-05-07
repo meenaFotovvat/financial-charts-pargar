@@ -2,10 +2,10 @@
 
 import {
   CandlestickData,
-  CandlestickSeries,
-  CandlestickSeriesOptions,
   createChart,
   IChartApi,
+  CandlestickSeriesOptions,
+  CandlestickSeries,
 } from "lightweight-charts";
 import { useEffect, useRef } from "react";
 
@@ -18,12 +18,11 @@ export default function CandlestickChart({ data }: Props) {
   const chartRef = useRef<IChartApi | null>(null);
 
   useEffect(() => {
-    // Guard against null before using:
     const container = chartContainerRef.current;
     if (!container) return;
 
     const chart = createChart(container, {
-      width: 600,
+      width: container.offsetWidth,
       height: 300,
       layout: {
         background: { color: "#222" },
@@ -49,9 +48,12 @@ export default function CandlestickChart({ data }: Props) {
     newSeries.setData(data);
     chart.timeScale().fitContent();
 
-    // Handle resize
     const handleResize = () => {
-      chart.applyOptions({ width: container.clientWidth });
+      if (chartRef.current && chartContainerRef.current) {
+        chartRef.current.applyOptions({
+          width: chartContainerRef.current.offsetWidth,
+        });
+      }
     };
 
     window.addEventListener("resize", handleResize);
@@ -62,5 +64,9 @@ export default function CandlestickChart({ data }: Props) {
     };
   }, [data]);
 
-  return <div ref={chartContainerRef} />;
+  return (
+    <div className="px-4">
+      <div className="w-full" ref={chartContainerRef} />
+    </div>
+  );
 }
