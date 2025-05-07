@@ -23,7 +23,7 @@ const data = [
   { name: "۱۰", robot: 2, fatemeh: 14 },
 ];
 
-export default function LossChart() {
+export default function BarComparisonChart() {
   return (
     <div className="bg-[#0B0B18] text-white p-6 rounded-2xl w-full max-w-5xl mx-auto">
       <h2 className="text-right">میزان ضرر شما و ربات در هر معامله</h2>
