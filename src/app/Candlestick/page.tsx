@@ -11,6 +11,7 @@ const CandlestickChart = dynamic(
 const Candlestick = () => {
   return (
     <div className="w-full pt-4">
+      <h2 className="pb-4 px-4">نمایش چارت نماد های مالی</h2>
       <CandlestickChart data={chartInfos} />
     </div>
   );
