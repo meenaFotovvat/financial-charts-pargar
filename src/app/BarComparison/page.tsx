@@ -1,4 +1,15 @@
-import BarComparisonChart from "@/components/BarComparisonChart";
+"use client";
+
+import ChartLoader from "@/components/ChartLoader";
+import dynamic from "next/dynamic";
+
+const BarComparisonChart = dynamic(
+  () => import("@/components/BarComparisonChart"),
+  {
+    ssr: false,
+    loading: () => <ChartLoader />,
+  }
+);
 
 const Candlestick = () => {
   return (
